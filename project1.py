@@ -10,8 +10,7 @@ cv2.imshow("Image", image)
 img = imutils.resize(image, width=500 ) #이미지 가로 사이즈가 500이 되도록 조절 
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) #그레이 스케일
 
-a = cv2.Canny(gray, 30, 200)
-cv2.imwrite("no_blur.png",a)
+
 gray = cv2.GaussianBlur(gray,(3,3),5) #가우시안 블러 처리
 cv2.imshow("GaussianBlur",gray)
 
@@ -52,8 +51,12 @@ Cropped_loc='number.png' #the filename of cropped image
 cv2.imshow("cropped",cv2.imread(Cropped_loc)) 
 
 text=pytesseract.image_to_string(Cropped_loc,lang='kor', config='') #이미지내 텍스트를 문자열로 바꿈
-"""arr = text.split('\n')[0:-1]
-text = '\n'.join(arr)"""
+
+#pytesseract 사용시 나타나는 print 오류 해결 위해 삽입
+arr = text.split('\n')[0:-1]
+text = '\n'.join(arr)
+
+#번호판 문자열 출력
 print("차량 번호:" ,text)
 cv2.waitKey(0)
 cv2.destroyAllWindows() 
